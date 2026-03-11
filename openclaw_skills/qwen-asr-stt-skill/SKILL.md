@@ -28,6 +28,12 @@ bash run_file.sh --audio /path/to/audio.wav --local-only
 bash run_mic.sh --local-only
 ```
 
+录音、转写并直接调用 `koch-skill`：
+
+```bash
+bash run_koch.sh --local-only
+```
+
 ## 行为约定
 
 - 优先调用工作区中的 `qwen_asr_stt/.venv`
@@ -39,6 +45,7 @@ bash run_mic.sh --local-only
 
 - `run_file.sh`: 文件转写入口
 - `run_mic.sh`: 麦克风转写入口
+- `run_koch.sh`: STT -> koch-skill 入口
 - `README.md`: 安装和使用说明
 
 ## 注意事项

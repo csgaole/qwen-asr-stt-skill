@@ -19,6 +19,7 @@
 - `requirements.txt`: Python 依赖
 - `stt_qwen.py`: STT 主程序
 - `stt_qwen_mic.py`: 麦克风录音后立即转写
+- `stt_koch_bridge.py`: 录音转写后直接调用 `koch-skill`
 
 ## 安装
 
@@ -99,6 +100,32 @@ python3 stt_qwen_mic.py --local-only
 python3 stt_qwen_mic.py --keep-audio --output mic_test.wav
 ```
 
+## 接到 koch-skill
+
+录音、转写，然后把文本直接交给 `koch-skill` 的 `execute_voice_command()`：
+
+```bash
+cd qwen_asr_stt
+source .venv/bin/activate
+python3 stt_koch_bridge.py --local-only
+```
+
+只看识别结果，不真的控制机械臂：
+
+```bash
+python3 stt_koch_bridge.py --local-only --dry-run
+```
+
+适合的口令示例：
+
+```text
+跳舞
+回到 home 位置
+准备抓取
+状态
+下电
+```
+
 ## 工作方式
 
 脚本会按以下顺序执行：
@@ -145,6 +172,14 @@ python3 stt_qwen_mic.py --keep-audio --output mic_test.wav
 这样可以先把本地 STT 跑起来，再回头补齐 Qwen 环境。
 
 麦克风版本使用系统自带的 `arecord` 做录音，不额外引入 Python 录音库，目的是减少环境问题。
+
+`stt_koch_bridge.py` 不直接依赖 `qwen_asr_stt` 虚拟环境里的机器人库，而是调用：
+
+```bash
+/home/legao/miniforge3/envs/lerobot/bin/python
+```
+
+去执行本机现有的 `koch-skill` 实现。
 
 ## 常见报错排查
 

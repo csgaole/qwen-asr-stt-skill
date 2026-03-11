@@ -13,7 +13,8 @@ qwen-asr-stt-skill/
 ├── SKILL.md
 ├── README.md
 ├── run_file.sh
-└── run_mic.sh
+├── run_mic.sh
+└── run_koch.sh
 ```
 
 ## 安装
@@ -36,6 +37,12 @@ bash run_file.sh --audio /path/to/audio.wav --local-only
 
 ```bash
 bash run_mic.sh --local-only
+```
+
+录音、转写并调用 `koch-skill`：
+
+```bash
+bash run_koch.sh --local-only
 ```
 
 ## 依赖
